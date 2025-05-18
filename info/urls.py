@@ -1,9 +1,15 @@
 from django.urls import path, include
 from . import views
 from django.contrib import admin
+from .views import custom_logout_view,CustomLoginView
+
 
 
 urlpatterns = [
+    path('accounts/login/', CustomLoginView.as_view(), name='login'),
+    path('accounts/logout/', custom_logout_view, name='logout'),
+    path('accounts/', include('django.contrib.auth.urls')),
+
     path('', views.index, name='index'),
     path('student/<slug:stud_id>/attendance/',
          views.attendance, name='attendance'),

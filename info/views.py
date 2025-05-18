@@ -6,6 +6,23 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView
+
+
+
+# Logout fixed
+@csrf_exempt
+@require_GET
+def custom_logout_view(request):
+    logout(request)
+    return redirect('/')
+
+class CustomLoginView(LoginView):
+    template_name = 'info/login.html' 
+
 
 
 User = get_user_model()
